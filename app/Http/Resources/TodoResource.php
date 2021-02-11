@@ -12,23 +12,22 @@ class TodoResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     public function toArray($request)
     {
-        return [
-            'data' => [
-                'type' => 'todo',
+        // return parent::toArray($request);
+        return
+            [
                 'id' => $this->id,
-                'attributes' => [
-                    'title' => $this->title,
-                    'description' => $this->description,
-                    'completed' => $this->completed,
-                    'created_at' => $this->created_at,
-                    'updated_at' => $this->updated_at
-                ],
-
-            ]
-        ];
+                'title' => $this->title,
+                'description' => $this->description,
+                'completed' => $this->completed,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at
+            ];
     }
+
+
     public function with($request)
     {
         return [

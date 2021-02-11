@@ -16,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return new TodoCollection(Todo::paginate(20));
+        return new TodoCollection(Todo::all());
         //
     }
 
@@ -47,10 +47,11 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show($id)
     {
         //
-        return new TodoResource($todo);
+        //return new TodoResource($todo);
+        return new TodoResource(Todo::findOrFail($id));
     }
 
     /**

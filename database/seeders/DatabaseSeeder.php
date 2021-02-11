@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ListCol;
+use App\Models\Todo;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create();
-        \App\Models\ListCol::factory(20)->create();
-        \App\Models\Todo::factory(60)->create();
+        User::factory(3)->create();
+        ListCol::factory(20)->create();
+        Todo::factory(60)->create();
     }
 }

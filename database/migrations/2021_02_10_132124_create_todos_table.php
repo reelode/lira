@@ -20,6 +20,7 @@ class CreateTodosTable extends Migration
             $table->mediumText('description')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('list_col_id')->constrained();
+            $table->integer('y_position'); //here
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -18,6 +19,23 @@ class TodoController extends Controller
     {
         return new TodoCollection(Todo::paginate(20));
         //
+    }
+
+
+
+    /**
+     * This method returns all todos from a user, sorted descendingly by y-position. good for almost nothing
+     */
+    public function getByUser()
+    {
+        return new TodoCollection(Todo::where('user_id', Auth::id())->orderByDesc('y_position')->get());
+    }
+
+    public function getListsAndTodos()
+    {
+        $user_id = Auth::id();
+        //this is a MAJOR request that will, when completed, return all lists of a user, with 
+        //todos sorted by Y-position in the lists. maybe split up into smaller ones?
     }
 
     /**
@@ -39,6 +57,13 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         //
+        $todo = new Todo;
+        $todo->title = $request->title;
+        $todo->description = $request->description;
+        $todo->list_col_id = $request->list_col_id;
+        $todo->user_id = Auth::id();
+        $todo->y_position = Todo::getHighestYPos($todo->user_id, $todo->list_col_id) + 1; //good starting point
+        $todo->save();
     }
 
     /**

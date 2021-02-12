@@ -27,7 +27,8 @@ class TodoFactory extends Factory
             'title' => $this->faker->streetAddress,
             'description' => rand(0, 2) > 1 ? $this->faker->text(15) : null,
             'user_id' => User::inRandomOrder()->value('id'),
-            'list_col_id' => ListCol::inRandomOrder()->value('id')
+            'list_col_id' => ListCol::inRandomOrder()->value('id'),
+            'y_position' => $this->faker->randomNumber()
         ];
     }
 }

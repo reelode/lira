@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1954,9 +1956,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       todos: [],
+      debounce: false,
       loading: true,
       errored: false
     };
+  },
+  methods: {
+    update: function update() {
+      this.todos.map(function (todo, index) {
+        todo.order = index + 1;
+      });
+      axios.post("/todos/updateAll", {
+        todos: this.todos
+      });
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -1970,6 +1983,11 @@ __webpack_require__.r(__webpack_exports__);
     })["finally"](function () {
       return _this.loading = false;
     });
+  },
+  computed: {
+    orderedTodos: function orderedTodos() {
+      return _.orderBy(this.todos, "order");
+    }
   }
 });
 
@@ -55978,27 +55996,20 @@ var render = function() {
                   attrs: {
                     tag: "ul",
                     "ghost-class": "moving-card",
-                    filter: ".action-button",
                     list: _vm.todos,
                     animation: 200
-                  }
+                  },
+                  on: { change: _vm.update }
                 },
-                _vm._l(_vm.todos, function(todo) {
+                _vm._l(_vm.orderedTodos, function(todo, index) {
                   return _c(
                     "li",
                     {
-                      key: todo.id,
+                      key: index,
                       staticClass:
                         "p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg cursor-move"
                     },
-                    [
-                      _vm._v("\n        " + _vm._s(todo.title) + " "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("EditIcon"),
-                      _c("Trash2Icon")
-                    ],
-                    1
+                    [_vm._v("\n        " + _vm._s(todo.title) + "\n\n        ")]
                   )
                 }),
                 0

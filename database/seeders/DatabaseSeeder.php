@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(3)->create();
         ListCol::factory(20)->create();
-        Todo::factory(60)->create();
+        Todo::factory(20)->create();
     }
 }

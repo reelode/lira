@@ -26,9 +26,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+Route::post('/todos/{updateAll}', [TodoController::class, 'updateAll'])->name('todos.updateAll');
 Route::get('/todos/{todo}', [TodoController::class, 'show'])->name('todos.show');
-Route::get('/list', function () {
-    return new ListColCollection(ListCol::all());
-});

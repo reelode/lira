@@ -16,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return new TodoCollection(Todo::all());
+        return new TodoCollection(Todo::paginate());
         //
     }
 
@@ -47,11 +47,11 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Todo $todo)
     {
         //
         //return new TodoResource($todo);
-        return new TodoResource(Todo::findOrFail($id));
+        return new TodoResource($todo);
     }
 
     /**
@@ -75,6 +75,30 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAll(Request $request)
+    {
+
+        $todos = Todo::all();
+        foreach ($todos as $todo) {
+            $todo->timestamps = false;
+            $id = $todo->id;
+            foreach ($request->todos as $todoFrontend) {
+                if ($todoFrontend['id'] == $id) {
+                    $todo->update(['order' => $todoFrontend['order']]);
+                }
+            }
+        }
+
+
+        return response('Update Successful', 200);
     }
 
     /**

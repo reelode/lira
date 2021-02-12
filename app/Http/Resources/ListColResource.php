@@ -15,16 +15,11 @@ class ListColResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'data' => [
-                'type' => 'list_col',
-                'id' => $this->id,
-                'attributes' => [
-                    'title' => $this->title,
-                    'description' => $this->description,
-                    'created_at' => $this->created_at,
-                    'updated_at' => $this->updated_at
-                ]
-            ]
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

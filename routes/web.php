@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use App\Http\Resources\ListColCollection;
+use App\Models\ListCol;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +25,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+Route::post('/todos/{updateAll}', [TodoController::class, 'updateAll'])->name('todos.updateAll');
 Route::get('/todos/{todo}', [TodoController::class, 'show'])->name('todos.show');
